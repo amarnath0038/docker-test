@@ -1,0 +1,20 @@
+
+services:
+  mongodb1234:
+    image: "mongo:4.4"
+    container_name: "mongodb1234"
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongodb_data:/data/db"
+  backend-app:
+    image: "nodejs-backend"
+    container_name: backend-app
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: "mongodb://mongodb1234:27017"
+    depends_on:
+      - mongodb1234
+volumes:
+  mongodb_data:
